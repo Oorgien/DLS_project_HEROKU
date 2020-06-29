@@ -1,5 +1,8 @@
 pyTelegramBotAPI==3.7.1
-torch==1.5.1
 Pillow==7.1.2
 requests==2.22.0
-torchvision==0.6.1
+
+-f https://download.pytorch.org/whl/torch_stable.html
+
+torch==1.5.0+cpu
+torchvision==0.6.0+cpu
