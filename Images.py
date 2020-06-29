@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 
-import matplotlib.pyplot as plt
 from PIL import Image
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -28,15 +27,6 @@ class Preproc(nn.Module):
         style2_img = self.image_loader(style_2)
         content_img = self.image_loader(content)  # измените путь на тот который у вас.
         return style1_img, style2_img, content_img
-
-    def imshow(self, tensor, title=None):
-        image = tensor.cpu().clone()
-        image = image.squeeze(0)  # функция для отрисовки изображения
-        image = self.unloader(image)
-        plt.imshow(image)
-        if title is not None:
-            plt.title(title)
-        plt.pause(0.001)
 
 
 class Normalization(nn.Module):
