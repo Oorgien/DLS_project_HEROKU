@@ -1,7 +1,5 @@
 from torch import *
 
-import gc
-
 import torch
 import torch.nn as nn
 
@@ -33,7 +31,6 @@ class GanModel(nn.Module):
         content_img = Preproc(img_size).image_loader(img)
         normalized_img = normalization.forward(content_img)
 
-        gc.collect()
         with torch.no_grad():
             res = self.model(normalized_img).detach()
         res = res.view(res.shape[1], res.shape[2], res.shape[3])
