@@ -112,14 +112,14 @@ def get_style_2(message):
 def train_NST(message, mode):
     bot.send_message(message.chat.id, "Подождите немного! Алгоритм медленный:(")
     if mode == 1:
-        style1_img = Preproc(255).image_loader('images/style.jpg')
-        content_img = Preproc(255).image_loader('images/content.jpg')
+        style1_img = Preproc(128).image_loader('images/style.jpg')
+        content_img = Preproc(128).image_loader('images/content.jpg')
         input_img = content_img.clone()
         output = Style_transfer(content_img=content_img, style1_img=style1_img,
-                                style2_img=torch.zeros(1, 3, 255, 255).to(device), input_img=input_img,
+                                style2_img=torch.zeros(1, 3, 128, 128).to(device), input_img=input_img,
                                 num_steps=100, style_weight_1=100000, style_weight_2=100000, mode=1).forward()
     else:
-        style1_img, style2_img, content_img = Preproc(255).transform_images("images/content.jpg",
+        style1_img, style2_img, content_img = Preproc(128).transform_images("images/content.jpg",
                                                                             "images/style_1.jpg",
                                                                             "images/style_2.jpg")
         input_img = content_img.clone()
