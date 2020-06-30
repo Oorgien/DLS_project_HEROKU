@@ -4,8 +4,6 @@ import torchvision.transforms as transforms
 
 from PIL import Image
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 class Preproc(nn.Module):
     def __init__(self, imsize):
         super(Preproc, self).__init__()
@@ -20,7 +18,7 @@ class Preproc(nn.Module):
     def image_loader(self, image_name):
         image = Image.open(image_name)
         image = self.loader(image).unsqueeze(0)
-        return image.to(device, torch.float)
+        return image
 
     def transform_images(self, content, style_1, style_2):
         style1_img = self.image_loader(style_1)  # as well as here

@@ -27,7 +27,7 @@ class GanModel(nn.Module):
         normalized_img = normalization.forward(content_img)
 
         with torch.no_grad():
-            res = self.model(normalized_img).detach()
+            res = self.model(normalized_img)
         res = res.view(res.shape[1], res.shape[2], res.shape[3])
         res = (res * self.normalization_std.view(3, 1, 1)) + self.normalization_mean.view(3, 1, 1)
         return res
