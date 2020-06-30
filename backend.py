@@ -117,7 +117,8 @@ class Style_transfer(nn.Module):
         return self.input_img
     
     def get_style_model_and_losses(self):
-        self.cnn = torch.load('./test/entire_model.pth')
+        device = torch.device('cpu')
+        self.cnn = torch.load('./test/entire_model.pth', map_location= device)
 
         normalization = Normalization(self.normalization_mean, self.normalization_std).to(device)
 
