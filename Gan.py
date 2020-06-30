@@ -18,11 +18,8 @@ class GanModel(nn.Module):
 
     def load_model(self):
         model_file = self.model_jit_name
-        model = torch.jit.load(model_file).cuda()
+        model = torch.jit.load(model_file)
         model = model.eval()
-        torch.cuda.empty_cache()
-        torch.cuda.ipc_collect()
-        torch.backends.cudnn.benchmark = True
         return model
 
     def forward(self, img, img_size):
