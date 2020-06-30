@@ -16,7 +16,7 @@ class GanModel(nn.Module):
 
     def load_model(self):
         model_file = self.model_jit_name
-        model = torch.jit.load(model_file)
+        model = torch.jit.load(model_file, map_location=torch.device('cpu'))
         model = model.eval()
         return model
 
