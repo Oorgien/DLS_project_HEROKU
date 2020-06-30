@@ -5,7 +5,6 @@ import torch
 
 import torchvision
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 token = 'DLS_21_94D655BACD6A2EC0'
 
 from backend import Style_transfer
@@ -116,7 +115,7 @@ def train_NST(message, mode):
         content_img = Preproc(128).image_loader('images/content.jpg')
         input_img = content_img.clone()
         output = Style_transfer(content_img=content_img, style1_img=style1_img,
-                                style2_img=torch.zeros(1, 3, 128, 128).to(device), input_img=input_img,
+                                style2_img=torch.zeros(1, 3, 128, 128), input_img=input_img,
                                 num_steps=100, style_weight_1=100000, style_weight_2=100000, mode=1).forward()
     else:
         style1_img, style2_img, content_img = Preproc(128).transform_images("images/content.jpg",

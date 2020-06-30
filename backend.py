@@ -9,8 +9,6 @@ import copy
 
 from Images import Normalization
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 def gram_matrix(input):
         batch_size , h, w, f_map_num = input.size()
         features = input.view(batch_size * h, w * f_map_num)
@@ -45,8 +43,8 @@ class Style_transfer(nn.Module):
     content_layers_default = ['conv_4']
     style_layers_default = ['conv_1', 'conv_2', 'conv_3', 'conv_4', 'conv_5']
     
-    normalization_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
-    normalization_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
+    normalization_mean = torch.tensor([0.485, 0.456, 0.406])
+    normalization_std = torch.tensor([0.229, 0.224, 0.225])
     
     def __init__(self, content_img, style1_img, style2_img, input_img, num_steps=500,
                           style_weight_1=100000,style_weight_2=100000, content_weight=1, mode = 2):
@@ -119,7 +117,7 @@ class Style_transfer(nn.Module):
     def get_style_model_and_losses(self):
         self.cnn = torch.load('./test/entire_model.pth', map_location=torch.device('cpu'))
 
-        normalization = Normalization(self.normalization_mean, self.normalization_std).to(device)
+        normalization = Normalization(self.normalization_mean, self.normalization_std)
 
         content_losses = []
         style_losses_1 = []

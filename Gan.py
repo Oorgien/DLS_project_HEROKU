@@ -5,11 +5,9 @@ import torch.nn as nn
 
 from Images import Preproc, Normalization
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 class GanModel(nn.Module):
-    normalization_mean = torch.tensor([0.5, 0.5, 0.5]).to(device)
-    normalization_std = torch.tensor([0.5, 0.5, 0.5]).to(device)
+    normalization_mean = torch.tensor([0.5, 0.5, 0.5])
+    normalization_std = torch.tensor([0.5, 0.5, 0.5])
 
     def __init__(self, model_name):
         super(GanModel, self).__init__()
@@ -24,7 +22,7 @@ class GanModel(nn.Module):
 
     def forward(self, img, img_size):
 
-        normalization = Normalization(self.normalization_mean, self.normalization_std).to(device)
+        normalization = Normalization(self.normalization_mean, self.normalization_std)
         content_img = Preproc(img_size).image_loader(img)
         normalized_img = normalization.forward(content_img)
 
