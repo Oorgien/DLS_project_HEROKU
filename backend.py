@@ -40,9 +40,8 @@ class StyleLoss(nn.Module):
             self.loss = F.mse_loss(G, self.target)
             return input
 
+
 class Style_transfer(nn.Module):
-    cnn = models.vgg19(pretrained=True).to(device).features.eval()
-    
     content_layers_default = ['conv_4']
     style_layers_default = ['conv_1', 'conv_2', 'conv_3', 'conv_4', 'conv_5']
     
@@ -64,7 +63,7 @@ class Style_transfer(nn.Module):
         
     def get_input_optimizer(self,input_img):
         # this line to show that input is a parameter that requires a gradient
-        #добоваляет содержимое тензора катринки в список изменяемых оптимизатором параметров
+        # добоваляет содержимое тензора катринки в список изменяемых оптимизатором параметров
         optimizer = optim.LBFGS([input_img.requires_grad_()]) 
         return optimizer
     
@@ -118,7 +117,7 @@ class Style_transfer(nn.Module):
         return self.input_img
     
     def get_style_model_and_losses(self):
-        cnn = copy.deepcopy(self.cnn)
+        self.cnn = torch.load('./test/entire_model.pth')
 
         normalization = Normalization(self.normalization_mean, self.normalization_std).to(device)
 
@@ -128,6 +127,7 @@ class Style_transfer(nn.Module):
 
         # assuming that cnn is a nn.Sequential, so we make a new nn.Sequential
         # to put in modules that are supposed to be activated sequentially
+
         model = nn.Sequential(normalization)
 
         i = 0  # increment every time we see a conv

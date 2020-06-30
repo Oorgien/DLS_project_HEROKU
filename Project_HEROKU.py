@@ -117,7 +117,7 @@ def train_NST(message, mode):
         input_img = content_img.clone()
         output = Style_transfer(content_img=content_img, style1_img=style1_img,
                                 style2_img=torch.zeros(1, 3, 255, 255).to(device), input_img=input_img,
-                                num_steps=500, style_weight_1=100000, style_weight_2=100000, mode=1).forward()
+                                num_steps=100, style_weight_1=100000, style_weight_2=100000, mode=1).forward()
     else:
         style1_img, style2_img, content_img = Preproc(255).transform_images("images/content.jpg",
                                                                             "images/style_1.jpg",
@@ -125,7 +125,7 @@ def train_NST(message, mode):
         input_img = content_img.clone()
         output = Style_transfer(content_img=content_img, style1_img=style1_img,
                                 style2_img=style2_img, input_img=input_img,
-                                num_steps=500, style_weight_1=100000, style_weight_2=100000, mode=2).forward()
+                                num_steps=100, style_weight_1=100000, style_weight_2=100000, mode=2).forward()
 
     output = output.view(output.shape[1], output.shape[2], output.shape[3])
     torchvision.utils.save_image(output, 'images/output.jpg')
