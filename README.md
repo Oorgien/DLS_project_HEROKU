@@ -1,7 +1,7 @@
 # DLS project
  DLS project deployed on HEROKU
 
- Приложение должно спать с 2:00 ночи по 8:00 утра.
+Для взаимодействия с ботом пропишите /start или /help.
 
 Доступ к боту @Oorgien_bot
 
